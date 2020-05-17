@@ -4,12 +4,12 @@
     <div class="avater_img">
       <img src="./../assets/logo.png" alt="">
       </div>
-      <el-form :v-model="loginForm" label-width="100px" class="login_form">
-        <el-form-item label="用户名">
-          <el-input v-model="loginForm.username" prefix-icon="el-icon-user" ></el-input>
+      <el-form label-width="100px" class="login_form">
+        <el-form-item label="用户名" >
+          <el-input></el-input>
         </el-form-item>
         <el-form-item label="密码" >
-          <el-input v-model="loginForm.password" prefix-icon="el-icon-lock" type="password"></el-input>
+          <el-input></el-input>
         </el-form-item>
         <el-form-item class="btns">
            <el-button type="primary">登录</el-button>
@@ -24,10 +24,7 @@
 export default {
   data () {
     return {
-      loginForm: {
-        username: 'admin',
-        password: '123456'
-      }
+
     }
   },
   methods: {
@@ -79,10 +76,6 @@ export default {
     width: 100%;
     padding: 0 20px;
     box-sizing: border-box;
-    .btns {
-      display:flex;
-      justify-content: flex-end;
-    }
   }
 }
 </style>

@@ -4,18 +4,22 @@
     <div class="avater_img">
       <img src="./../assets/logo.png" alt="">
       </div>
-      <el-form :v-model="loginForm" label-width="100px" class="login_form">
-        <el-form-item label="用户名">
-          <el-input v-model="loginForm.username" prefix-icon="el-icon-user" ></el-input>
-        </el-form-item>
-        <el-form-item label="密码" >
-          <el-input v-model="loginForm.password" prefix-icon="el-icon-lock" type="password"></el-input>
-        </el-form-item>
-        <el-form-item class="btns">
-           <el-button type="primary">登录</el-button>
-           <el-button>重置</el-button>
-        </el-form-item>
-      </el-form>
+      <el-form :model="numberValidateForm" ref="numberValidateForm" label-width="100px" class="demo-ruleForm">
+  <el-form-item
+    label="年龄"
+    prop="age"
+    :rules="[
+      { required: true, message: '年龄不能为空'},
+      { type: 'number', message: '年龄必须为数字值'}
+    ]"
+  >
+    <el-input type="age" v-model.number="numberValidateForm.age" autocomplete="off"></el-input>
+  </el-form-item>
+  <el-form-item>
+    <el-button type="primary" @click="submitForm('numberValidateForm')">提交</el-button>
+    <el-button @click="resetForm('numberValidateForm')">重置</el-button>
+  </el-form-item>
+</el-form>
   </div>
 </div>
 </template>
@@ -24,13 +28,25 @@
 export default {
   data () {
     return {
-      loginForm: {
-        username: 'admin',
-        password: '123456'
+      numberValidateForm: {
+        age: ''
       }
     }
   },
   methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('submit!');
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    }
   }
 }
 </script>
@@ -71,17 +87,6 @@ export default {
       height: 100%;
       border-radius: 50%;
       background-color: #ddd;
-    }
-  }
-  .login_form{
-    position:absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 0 20px;
-    box-sizing: border-box;
-    .btns {
-      display:flex;
-      justify-content: flex-end;
     }
   }
 }
