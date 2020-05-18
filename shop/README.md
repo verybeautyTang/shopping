@@ -37,3 +37,5 @@ axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
 退出功能是要清空token并且重新到登录
      window.sessionStorage.clear()
       this.$router.push('/login')
+
+通过axios请求拦截器添加token，保证拥有获取数据的权限（为请求头对象挂载一个自定义属性）
