@@ -32,11 +32,30 @@
 
 <script>
 export default {
+  data () {
+    return {
+      menulist: []
+    }
+  },
   methods: {
     logout () {
       window.sessionStorage.clear()
       this.$router.push('/login')
+    },
+    // 获取左侧的菜单
+    async getMenuList () {
+      const { data: res } = await this.$http.get('menus')
+      console.log(res)
+      if (res.meta.status !== 200) {
+        return this.$message.error(res.meta.msg)
+      } else {
+        this.menulist = res.data
+        return this.$message.success(res.meta.msg)
+      }
     }
+  },
+  created () {
+    this.getMenuList()
   }
 }
 </script>
