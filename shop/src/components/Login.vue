@@ -4,7 +4,7 @@
     <div class="avater_img">
       <img src="./../assets/logo.png" alt="">
       </div>
-      <el-form :v-model="loginForm" :rules="loginRule" label-width="100px" class="login_form">
+      <el-form :model="loginForm" ref="loginFromItem" :rules="loginRule" label-width="100px" class="login_form">
         <el-form-item label="用户名" prop="username">
           <el-input v-model="loginForm.username" prefix-icon="el-icon-user" ></el-input>
         </el-form-item>
@@ -13,7 +13,7 @@
         </el-form-item>
         <el-form-item class="btns">
            <el-button type="primary">登录</el-button>
-           <el-button>重置</el-button>
+           <el-button @click="resetForm()">重置</el-button>
         </el-form-item>
       </el-form>
   </div>
@@ -41,6 +41,10 @@ export default {
     }
   },
   methods: {
+    resetForm () {
+      console.log(this.$refs)
+      this.$refs.loginFromItem.resetFields()
+    }
   }
 }
 </script>
