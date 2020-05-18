@@ -4,11 +4,11 @@
     <div class="avater_img">
       <img src="./../assets/logo.png" alt="">
       </div>
-      <el-form :v-model="loginForm" :rules="loginRule" label-width="100px" class="login_form">
-        <el-form-item label="用户名" prop="username">
+      <el-form :v-model="loginForm" :rule='loginRule' label-width="100px" class="login_form">
+        <el-form-item label="用户名">
           <el-input v-model="loginForm.username" prefix-icon="el-icon-user" ></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="password" >
+        <el-form-item label="密码" >
           <el-input v-model="loginForm.password" prefix-icon="el-icon-lock" type="password"></el-input>
         </el-form-item>
         <el-form-item class="btns">
@@ -25,18 +25,12 @@ export default {
   data () {
     return {
       loginForm: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123456'
       },
       loginRule: {
-        username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
-          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
-        ],
-        password: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
-          { min: 6, max: 26, message: '长度在 3 到 10 个字符', trigger: 'blur' }
-        ]
+        username: [],
+        password: []
       }
     }
   },

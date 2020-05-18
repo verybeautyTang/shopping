@@ -4,11 +4,11 @@
     <div class="avater_img">
       <img src="./../assets/logo.png" alt="">
       </div>
-      <el-form :v-model="loginForm" :rules="loginRule" label-width="100px" class="login_form">
-        <el-form-item label="用户名" prop="username">
+      <el-form :v-model="loginForm" :rules='loginRule' label-width="100px" class="login_form">
+        <el-form-item label="用户名" prop='username'>
           <el-input v-model="loginForm.username" prefix-icon="el-icon-user" ></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="password" >
+        <el-form-item label="密码" prop='password' >
           <el-input v-model="loginForm.password" prefix-icon="el-icon-lock" type="password"></el-input>
         </el-form-item>
         <el-form-item class="btns">
