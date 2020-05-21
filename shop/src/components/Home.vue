@@ -11,14 +11,14 @@
       <el-container>
         <el-aside :width="isCollapse? '64px' :'200px'" style="background-color:#333744">
           <div class="toggle_button" @click="toggleCollage">|||</div>
-          <el-menu  background-color="#333744" text-color="#fff" :collapse="isCollapse" active-text-color="#409eff" unique-opened :collapse-transition="false" router>
-            <el-submenu v-for="items in menulist" :key="items.id"  :index="items.id" >
+          <el-menu  background-color="#333744" text-color="#fff" :collapse="isCollapse" active-text-color="#409eff" unique-opened :collapse-transition="false" router :default-active='ActiveThing'>
+            <el-submenu v-for="items in menulist" :key="items.id"  :index="items.path">
               <template slot="title">
                 <i :class="titleC[items.id]"></i><span>{{items.authName}}</span>
               </template>
-                <el-menu-item :index="'/'+ item.path" v-for="item in items.children" :key="item.id">
+                <el-menu-item :index="'/'+ item.path" v-for="item in items.children" :key="item.id" @click="IsActivei('/'+item.path)">
                     <template slot="title">
-                        <i class="el-icon-menu"></i>{{item.authName}}
+                        <i class="el-icon-menu"></i><span>{{item.authName}}</span>
                     </template></el-menu-item>
             </el-submenu>
           </el-menu>
@@ -43,7 +43,8 @@ export default {
         102: 'el-icon-s-order',
         145: 'el-icon-s-platform'
       },
-      isCollapse: false
+      isCollapse: false,
+      ActiveThing: ''
     }
   },
   methods: {
@@ -65,10 +66,16 @@ export default {
     // 点击按钮切换菜单的折叠与展开
     toggleCollage () {
       this.isCollapse = !this.isCollapse
+    },
+    IsActivei (ActiveThing) {
+      console.log(ActiveThing)
+      window.sessionStorage.setItem('ActiveThing', ActiveThing)
+      this.ActiveThing = ActiveThing
     }
   },
   created () {
     this.getMenuList()
+    this.ActiveThing = window.sessionStorage.getItem('ActiveThing')
   }
 }
 </script>
