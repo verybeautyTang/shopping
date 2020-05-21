@@ -55,7 +55,7 @@ export default {
             this.$message.error(res.meta.msg)
             console.log(res.meta.msg)
           } else {
-            this.$message.error(res.meta.msg)
+            this.$message.success(res.meta.msg)
             window.sessionStorage.setItem('token', res.data.token)
             this.$router.push('/home')
             console.log(res.meta.msg)
