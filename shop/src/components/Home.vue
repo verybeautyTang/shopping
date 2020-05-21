@@ -9,22 +9,23 @@
         <el-button class="logout" type="info" @click="logout">退出</el-button>
       </el-header>
       <el-container>
-        <el-aside width="200px" style="background-color:#333744">
-          <el-menu :default-openeds="['1', '3']"  style="background-color:#333744">
-            <el-submenu index="1">
+        <el-aside :width="isCollapse? '64px' :'200px'" style="background-color:#333744">
+          <div class="toggle_button" @click="toggleCollage">|||</div>
+          <el-menu  background-color="#333744" text-color="#fff" :collapse="isCollapse" active-text-color="#409eff" unique-opened :collapse-transition="false" router>
+            <el-submenu v-for="items in menulist" :key="items.id"  :index="items.id" >
               <template slot="title">
-                <i class="el-icon-message"></i>导航一
+                <i :class="titleC[items.id]"></i><span>{{items.authName}}</span>
               </template>
-                <el-menu-item index="1-1">
+                <el-menu-item :index="'/'+ item.path" v-for="item in items.children" :key="item.id">
                     <template slot="title">
-                        <i class="el-icon-message"></i>导航一
+                        <i class="el-icon-menu"></i>{{item.authName}}
                     </template></el-menu-item>
-                <el-menu-item index="1-2"><i class="el-icon-message"></i>选项2</el-menu-item>
-                <el-menu-item index="1-3"><i class="el-icon-message"></i>选项3</el-menu-item>
             </el-submenu>
           </el-menu>
         </el-aside>
-        <el-main>Main</el-main>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -34,7 +35,15 @@
 export default {
   data () {
     return {
-      menulist: []
+      menulist: [],
+      titleC: {
+        125: 'el-icon-user',
+        103: 'el-icon-edit',
+        101: 'el-icon-s-shop',
+        102: 'el-icon-s-order',
+        145: 'el-icon-s-platform'
+      },
+      isCollapse: false
     }
   },
   methods: {
@@ -52,6 +61,10 @@ export default {
         this.menulist = res.data
         return this.$message.success(res.meta.msg)
       }
+    },
+    // 点击按钮切换菜单的折叠与展开
+    toggleCollage () {
+      this.isCollapse = !this.isCollapse
     }
   },
   created () {
@@ -81,6 +94,18 @@ export default {
 }
 .el-aside {
   background-color: #333744;
+  .el-menu {
+    border-right: none;
+  }
+  .toggle_button{
+    background-color:#4A5064;
+    color: #FFF;
+    line-height: 20px;
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 0.2rem;
+    cursor: pointer;
+  }
 }
 .el-main {
   background-color: #eaedf1;
