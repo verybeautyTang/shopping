@@ -72,7 +72,7 @@
       </el-card>
     </div>
       <!-- 对话框 -->
-    <el-dialog title="添加用户" :visible.sync="addDialogVisible">
+    <el-dialog title="添加用户" :visible.sync="addDialogVisible" @close="addDialogClose">
       <el-form :model="addForm" :rules="Addrules" ref="AddruleForm" label-width="70px">
         <el-form-item label="用户名" prop="username">
           <el-input v-model="addForm.username"></el-input>
@@ -89,7 +89,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="addDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addDialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="sendAddUser">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -125,7 +125,8 @@ export default {
           { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
         ],
         mobile: [
-          { required: true, message: '请输入电话号码', trigger: 'blur' }
+          { required: true, message: '请输入电话号码', trigger: 'blur' },
+          { min: 11, max: 11, message: '请输入正确的手机号', trigger: 'blur' }
         ]
       }
     }
@@ -163,8 +164,31 @@ export default {
         return this.$message.success('更新用户状态成功')
       }
     },
+    // 新增用户对话框
     AddUser () {
       this.addDialogVisible = true
+    },
+    // 监听添加用户对话框的关闭事件，重置整个表单
+    addDialogClose () {
+      this.$refs.AddruleForm.resetFields()
+    },
+    sendAddUser () {
+      this.$refs.AddruleForm.validate(async valid => {
+        console.log(valid)
+        if (!valid) {
+          this.$message.error('添加失败，请完善信息后重试')
+        }
+        // 成功则开始发起添加新用户的请求
+        const { data: res } = await this.$http.post('users', this.addForm)
+        console.log(res)
+        if (res.meta.status !== 201) {
+          this.$message.error('添加用户失败')
+        } else {
+          this.$message.success('添加用户成功')
+          this.addDialogVisible = false
+          this.UserInfo()
+        }
+      })
     }
   },
   created () {
