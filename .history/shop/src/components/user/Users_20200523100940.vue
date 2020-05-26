@@ -53,7 +53,7 @@
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button @click="editUser(scope.row.id)" type="primary" icon="el-icon-edit" size="mini"></el-button>
-              <el-button @click="deleteUsers(scope.row.id)" type="danger" icon="el-icon-delete" size="mini"></el-button>
+              <el-button @click="deleteUser(scope.row.id)" type="danger" icon="el-icon-delete" size="mini"></el-button>
               <el-tooltip content="角色分配" placement="top" :enterable ="false">
                 <el-button @click="rightUser(scope.row.id)" type="warning" icon="el-icon-setting" size="mini"></el-button>
               </el-tooltip>
@@ -92,7 +92,7 @@
         <el-button type="primary" @click="sendAddUser">确 定</el-button>
       </div>
     </el-dialog>
-    <el-dialog title="修改用户" :visible.sync="editDialogVisible"  @close="editDialogClose">
+       <el-dialog title="修改用户" :visible.sync="editDialogVisible"  @close="editDialogClose">
       <el-form :model="editFrom" :rules="Editrules" ref="EditruleForm" label-width="70px">
         <el-form-item label="用户名" prop="username">
           <el-input v-model="editFrom.username" disabled></el-input>
@@ -202,20 +202,10 @@ export default {
       this.$refs.AddruleForm.resetFields()
     },
     sendAddUser () {
-      this.$refs.AddruleForm.validate(async valid => {
+      this.$refs.AddruleForm.validate(valid => {
         console.log(valid)
         if (!valid) {
           this.$message.error('添加失败，请完善信息后重试')
-        }
-        // 成功则开始发起添加新用户的请求
-        const { data: res } = await this.$http.post('users', this.addForm)
-        console.log(res)
-        if (res.meta.status !== 201) {
-          this.$message.error('添加用户失败')
-        } else {
-          this.$message.success('添加用户成功')
-          this.addDialogVisible = false
-          this.UserInfo()
         }
       })
     },
@@ -229,47 +219,27 @@ export default {
       this.editFrom = res.data
       this.editDialogVisible = true
     },
-    // 重置修改对话框
     editDialogClose () {
       this.$refs.EditruleForm.resetFields()
     },
-    // 修改确定
     sendEditUser () {
       this.$refs.EditruleForm.validate(async valid => {
         console.log(valid)
         if (!valid) {
           return this.$message.error('修改失败，请完善信息后重试')
         } else {
-          this.editDialogVisible = false
+        // 成功则开始发起添加新用户的请求
+          const { data: res } = await this.$http.put('users', this.editFrom.id)
+          console.log(res)
+          if (res.meta.status !== 200) {
+            this.$message.error('更改用户失败')
+          } else {
+            this.$message.success('更改用户成功')
+            this.editDialogVisible = false
+            this.UserInfo()
+          }
         }
       })
-    },
-    // 删除对话框
-    async deleteUsers (userid) {
-      const User = await this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).catch(err => err)
-      if (User !== 'confirm') {
-        this.$message({
-          type: 'info',
-          message: '取消删除!'
-        })
-      } else {
-        const { data: res } = await this.$http.delete('users/' + userid)
-        console.log(userid)
-        console.log(res)
-        if (res.meta.status !== 200) {
-          return this.$message.error('删除失败')
-        } else {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          })
-          this.UserInfo()
-        }
-      }
     }
   },
   created () {

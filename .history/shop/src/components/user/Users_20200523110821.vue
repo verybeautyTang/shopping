@@ -251,7 +251,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).catch(err => err)
-      if (User !== 'confirm') {
+      if (User !== 'comfirm') {
         this.$message({
           type: 'info',
           message: '取消删除!'
@@ -267,7 +267,7 @@ export default {
             type: 'success',
             message: '删除成功!'
           })
-          this.UserInfo()
+          this.userInfo()
         }
       }
     }

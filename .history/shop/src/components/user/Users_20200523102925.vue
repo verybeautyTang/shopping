@@ -246,30 +246,29 @@ export default {
     },
     // 删除对话框
     async deleteUsers (userid) {
-      const User = await this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+      console.log(userid)
+      await this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).catch(err => err)
-      if (User !== 'confirm') {
-        this.$message({
-          type: 'info',
-          message: '取消删除!'
-        })
-      } else {
-        const { data: res } = await this.$http.delete('users/' + userid)
-        console.log(userid)
+      }).then(() => {
+        const { data: res } = this.$http.delete('users/' + userid)
         console.log(res)
-        if (res.meta.status !== 200) {
+        if(res.meta.status !== 200) {
           return this.$message.error('删除失败')
         } else {
           this.$message({
             type: 'success',
             message: '删除成功!'
           })
-          this.UserInfo()
+          this.userInfo()
         }
-      }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     }
   },
   created () {
