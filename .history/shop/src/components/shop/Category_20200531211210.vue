@@ -11,12 +11,18 @@
           <el-button type='primary'>添加分类</el-button>
         </el-col>
       </el-row>
-      <tree-table :data="cateList" :columns='columns' :selection-type='false' :expand-type="false" show-index index-text="#" border :show-row-hover="false">
-        <template slot="isOk" slot-scope="scope">
-          <i class="el-icon-success" v-if="scope.row.cat_deleted === false" style="color:lightgreen"></i>
-          <i class="el-icon-error" v-else style="color:red"></i>
-        </template>
-      </tree-table>
+        <el-table :data="rightsList" border>
+        <el-table-column type="index"></el-table-column>
+        <el-table-column  prop="authName" label="权限名称"></el-table-column>
+        <el-table-column  prop="path" label="路径"></el-table-column>
+        <el-table-column  prop="level" label="权限等级">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.level === '0'">一级</el-tag>
+            <el-tag v-else-if="scope.row.level === '1'" type="success">二级</el-tag>
+            <el-tag v-else type="warning">三级</el-tag>
+          </template>
+        </el-table-column>
+      </el-table>
     </el-card>
   </div>
 </template>
@@ -25,32 +31,19 @@
 export default {
   data () {
     return {
-      queryInfo: {
+      queryInfo :{
         type: 3,
         pagenum: 1,
         pagesize: 2
       },
       cateList: [],
-      total: 0,
-      columns: [{
-        label: '分类名称',
-        prop: 'cat_name'
-      },
-      {
-        label: '是否有效',
-        type: 'template',
-        template: 'isOk'
-      }]
+      total: 0
     }
   },
   methods: {
     async getCategroys () {
       const { data: res } = await this.$http.get('categories', { params: this.queryInfo })
-      console.log(res.data.result)
-      if (res.meta.status !== 200) {
-        return this.$message.error(res.meta.msg)
-      }
-      this.cateList = res.data.result
+      console.log(res)
     }
   },
   created () {

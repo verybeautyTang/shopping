@@ -11,11 +11,8 @@
           <el-button type='primary'>添加分类</el-button>
         </el-col>
       </el-row>
-      <tree-table :data="cateList" :columns='columns' :selection-type='false' :expand-type="false" show-index index-text="#" border :show-row-hover="false">
-        <template slot="isOk" slot-scope="scope">
-          <i class="el-icon-success" v-if="scope.row.cat_deleted === false" style="color:lightgreen"></i>
-          <i class="el-icon-error" v-else style="color:red"></i>
-        </template>
+      <tree-table :data="cateList" :columns='columns':selection-type='false'>
+
       </tree-table>
     </el-card>
   </div>
@@ -35,11 +32,6 @@ export default {
       columns: [{
         label: '分类名称',
         prop: 'cat_name'
-      },
-      {
-        label: '是否有效',
-        type: 'template',
-        template: 'isOk'
       }]
     }
   },

@@ -13,8 +13,8 @@
       </el-row>
       <tree-table :data="cateList" :columns='columns' :selection-type='false' :expand-type="false" show-index index-text="#" border :show-row-hover="false">
         <template slot="isOk" slot-scope="scope">
-          <i class="el-icon-success" v-if="scope.row.cat_deleted === false" style="color:lightgreen"></i>
-          <i class="el-icon-error" v-else style="color:red"></i>
+          <i class="i-icon-success" v-if="scope.row.cat_deleted === false"></i>
+          <i class="i-icon-error" v-else></i>
         </template>
       </tree-table>
     </el-card>

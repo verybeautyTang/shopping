@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import './assets/global.css'
 import './plugins/element.js'
-import treeTable from 'vue-table-with-tree-grid'
+import VZtree from 'vue-table-with-tree-grid'
 import axios from 'axios'
 
 // 配置请求的根路径
@@ -17,7 +17,6 @@ axios.interceptors.request.use(config => {
 })
 Vue.prototype.$http = axios
 
-Vue.component('tree-table', treeTable)
 Vue.config.productionTip = false
 
 new Vue({
