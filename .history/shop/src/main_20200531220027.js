@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import './assets/global.css'
 import './plugins/element.js'
-import './assets/reset.css'
+import './assets/reset'
 import treeTable from 'vue-table-with-tree-grid'
 import axios from 'axios'
 
