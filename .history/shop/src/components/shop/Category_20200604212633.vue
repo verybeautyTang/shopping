@@ -168,14 +168,10 @@ export default {
           return this.$message.info('错误的分类')
         } else {
           const { data: res } = await this.$http.post('categories', this.ruleForm)
-          if (res.meta.status !== 201) {
-            return this.$message.error(res.meta.msg)
-          }
-          this.$message.success(res.meta.msg)
-          this.getCategroys()
-          this.showAddCategroy = false
+          console.log(res)
         }
       })
+      // this.showAddCategroy = false
     },
     //  监听对话框的关闭事件，重置对话框
     addCateClose () {

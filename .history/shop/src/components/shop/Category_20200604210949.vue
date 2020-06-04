@@ -39,9 +39,8 @@
       <el-dialog
         title="添加分类"
         :visible.sync="showAddCategroy"
-        @close="addCateClose"
         width="50%">
-        <el-form :model="ruleForm" :rules="rules" ref="refForm" label-width="100px" >
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
           <el-form-item label="分类名称" prop="cat_name">
             <el-input v-model="ruleForm.cat_name"></el-input>
           </el-form-item>
@@ -57,7 +56,7 @@
         </el-form>
         <span slot="footer" class="dialog-footer">
           <el-button @click="showAddCategroy = false">取 消</el-button>
-          <el-button type="primary" @click="AddCateSend">确 定</el-button>
+          <el-button type="primary" @click="showAddCategroy = false">确 定</el-button>
         </span>
       </el-dialog>
     </el-card>
@@ -151,38 +150,7 @@ export default {
     ChangeParnteCate () {
       console.log(this)
       console.log(this.selectKey.length)
-      if (this.selectKey.length > 0) {
-        this.ruleForm.cat_pid = this.selectKey[this.selectKey.length - 1]
-        this.ruleForm.cat_level = this.selectKey.length - 1
-        return 0
-      } else {
-        this.ruleForm.cat_pid = 0
-        this.ruleForm.cat_level = 0
-      }
-    },
-    //  添加分类的确认点击事件
-    AddCateSend () {
-      console.log(this.ruleForm)
-      this.$refs.refForm.validate(async valid => {
-        if (!valid) {
-          return this.$message.info('错误的分类')
-        } else {
-          const { data: res } = await this.$http.post('categories', this.ruleForm)
-          if (res.meta.status !== 201) {
-            return this.$message.error(res.meta.msg)
-          }
-          this.$message.success(res.meta.msg)
-          this.getCategroys()
-          this.showAddCategroy = false
-        }
-      })
-    },
-    //  监听对话框的关闭事件，重置对话框
-    addCateClose () {
-      this.$refs.refForm.resetFields()
-      this.selectKey = []
-      this.ruleForm.cat_pid = 0
-      this.ruleForm.cat_level = 0
+
     }
   },
   created () {

@@ -170,12 +170,14 @@ export default {
           const { data: res } = await this.$http.post('categories', this.ruleForm)
           if (res.meta.status !== 201) {
             return this.$message.error(res.meta.msg)
+          } else {
+            this.$message.error(res.meta.success)
+            this.getCategroys()
+            this.showAddCategroy = false
           }
-          this.$message.success(res.meta.msg)
-          this.getCategroys()
-          this.showAddCategroy = false
         }
       })
+      // this.showAddCategroy = false
     },
     //  监听对话框的关闭事件，重置对话框
     addCateClose () {
