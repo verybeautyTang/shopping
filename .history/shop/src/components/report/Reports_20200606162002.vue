@@ -6,7 +6,7 @@
     <el-breadcrumb-item>数据报表</el-breadcrumb-item>
   </el-breadcrumb>
   <el-card>
-     <div id="main" style="width: 750px;height:400px;"></div>
+     <div id="main" style="width: 600px;height:400px;"></div>
   </el-card>
   </div>
 </template>
@@ -63,10 +63,8 @@ export default {
     if (res.meta.status !== 200) {
       return this.$message.error(res.meta.msg)
     }
-    // 准备数据的配置项
-    const result = _.merge(res.data, this.options)
     // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(result)
+    myChart.setOption(res.data)
   }
 }
 </script>
