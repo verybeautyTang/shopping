@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { Button, Cascader, Tree, Input, Message, MessageBox, Container, Header, Aside, Main, Menu, Submenu, Form, FormItem, Select, Option, MenuItemGroup, MenuItem, Breadcrumb, BreadcrumbItem, Card, Row, Col, Table, TableColumn, Switch, Tooltip, Pagination, Dialog, Tag } from 'element-ui'
 import Timeline from './timeline/index.js'
-import TimelineItem from './timeline-item/index'
+import TimelineItem from './timeline-item/index.js'
 Vue.use(Button)
 Vue.use(Form)
 Vue.use(FormItem)

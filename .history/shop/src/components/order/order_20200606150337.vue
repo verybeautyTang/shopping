@@ -162,7 +162,6 @@ export default {
 }
 </script>
 
-<style lang="less" scope>
-@import '../../plugins/timeline/timeline.css';
-@import '../../plugins/timeline-item/timeline-item.css';
+<style>
+
 </style>

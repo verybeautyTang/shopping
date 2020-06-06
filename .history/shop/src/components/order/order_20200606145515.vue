@@ -78,15 +78,6 @@
         </el-form-item>
       </el-form>
     </el-dialog>
-    <!-- 时间线 -->
-     <el-timeline>
-      <el-timeline-item
-        v-for="(pr, index) in progess"
-        :key="index"
-        :timestamp="pr.time">
-        {{pr.context}}
-      </el-timeline-item>
-    </el-timeline>
   </el-card>
   </div>
 </template>
@@ -147,7 +138,7 @@ export default {
       this.$ref.ruleFormRef.resetFields()
     },
     async showMap () {
-      const { data: res } = await this.$http.get('/kuaidi/1106975712662')
+      const { data: res } = await this.$http.get('/kuaidi/804909574412544580')
       if (res.meta.status !== 200) {
         return this.$message.error(res.meta.msg)
       }
@@ -162,7 +153,6 @@ export default {
 }
 </script>
 
-<style lang="less" scope>
-@import '../../plugins/timeline/timeline.css';
-@import '../../plugins/timeline-item/timeline-item.css';
+<style>
+
 </style>

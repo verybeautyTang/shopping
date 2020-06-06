@@ -32,7 +32,7 @@
       <el-table-column label="操作">
         <template>
           <el-button type="primary" @click="showbox" icon="el-icon-edit" size="mini">编辑</el-button>
-          <el-button type="success" icon="el-icon-location" size="mini" @click="showMap">地图</el-button>
+          <el-button type="danger" icon="el-icon-delete" size="mini">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -46,53 +46,21 @@
       :total="total">
     </el-pagination>
     <el-dialog
-      title="修改地址"
+      title="提示"
       :visible.sync="dialogVisible"
-      width="50%"
-      @close="handleClose">
-      <el-form :model="ruleForm" :rules="rules" ref="ruleFormRef" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="省市区/县" prop="address">
-          <el-cascader :options="cityDate" v-model="ruleForm.address"></el-cascader>
-        </el-form-item>
-        <el-form-item label="详细地址" prop="addressdetail">
-          <el-input v-model="ruleForm.addressdetail"></el-input>
-        </el-form-item>
-      </el-form>
+      width="30%"
+      :before-close="handleClose">
+      <span>这是一段信息</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
-    <!-- 物流进度对话框 -->
-        <el-dialog
-      title="物流进度"
-      :visible.sync="ProgredialogVisible"
-      width="50%"
-      @close="handleClose">
-      <el-form :model="ruleForm" :rules="rules" ref="ruleFormRef" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="省市区/县" prop="address">
-          <el-cascader :options="cityDate" v-model="ruleForm.address"></el-cascader>
-        </el-form-item>
-        <el-form-item label="详细地址" prop="addressdetail">
-          <el-input v-model="ruleForm.addressdetail"></el-input>
-        </el-form-item>
-      </el-form>
-    </el-dialog>
-    <!-- 时间线 -->
-     <el-timeline>
-      <el-timeline-item
-        v-for="(pr, index) in progess"
-        :key="index"
-        :timestamp="pr.time">
-        {{pr.context}}
-      </el-timeline-item>
-    </el-timeline>
   </el-card>
   </div>
 </template>
 
 <script>
-import cityDate from './citydata'
 export default {
   data () {
     return {
@@ -103,22 +71,7 @@ export default {
       },
       total: 0,
       orders: [],
-      dialogVisible: false,
-      ruleForm: {
-        address: [],
-        addressdetail: ''
-      },
-      rules: {
-        address: [
-          { required: true, message: '请选择省市/区县 ', trigger: 'blur' }
-        ],
-        addressdetail: [
-          { required: true, message: '请填写详细地址', trigger: 'blur' }
-        ]
-      },
-      cityDate: cityDate,
-      ProgredialogVisible: false,
-      progess: []
+      dialogVisible: false
     }
   },
   methods: {
@@ -142,18 +95,6 @@ export default {
     },
     showbox () {
       this.dialogVisible = true
-    },
-    handleClose () {
-      this.$ref.ruleFormRef.resetFields()
-    },
-    async showMap () {
-      const { data: res } = await this.$http.get('/kuaidi/1106975712662')
-      if (res.meta.status !== 200) {
-        return this.$message.error(res.meta.msg)
-      }
-      this.progess = res.data
-      console.log(res.data)
-      this.ProgredialogVisible = true
     }
   },
   created () {
@@ -162,7 +103,6 @@ export default {
 }
 </script>
 
-<style lang="less" scope>
-@import '../../plugins/timeline/timeline.css';
-@import '../../plugins/timeline-item/timeline-item.css';
+<style>
+
 </style>

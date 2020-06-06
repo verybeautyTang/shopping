@@ -78,15 +78,6 @@
         </el-form-item>
       </el-form>
     </el-dialog>
-    <!-- 时间线 -->
-     <el-timeline>
-      <el-timeline-item
-        v-for="(pr, index) in progess"
-        :key="index"
-        :timestamp="pr.time">
-        {{pr.context}}
-      </el-timeline-item>
-    </el-timeline>
   </el-card>
   </div>
 </template>
@@ -117,8 +108,7 @@ export default {
         ]
       },
       cityDate: cityDate,
-      ProgredialogVisible: false,
-      progess: []
+      ProgredialogVisible: false
     }
   },
   methods: {
@@ -146,13 +136,7 @@ export default {
     handleClose () {
       this.$ref.ruleFormRef.resetFields()
     },
-    async showMap () {
-      const { data: res } = await this.$http.get('/kuaidi/1106975712662')
-      if (res.meta.status !== 200) {
-        return this.$message.error(res.meta.msg)
-      }
-      this.progess = res.data
-      console.log(res.data)
+    showMap () {
       this.ProgredialogVisible = true
     }
   },
@@ -162,7 +146,6 @@ export default {
 }
 </script>
 
-<style lang="less" scope>
-@import '../../plugins/timeline/timeline.css';
-@import '../../plugins/timeline-item/timeline-item.css';
+<style>
+
 </style>
