@@ -64,7 +64,4 @@ export default {
 .el-opt {
   margin-top: 30px;
 }
-.el-cascader {
-
-}
 </style>

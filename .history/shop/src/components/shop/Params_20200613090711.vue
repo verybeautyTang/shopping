@@ -33,12 +33,7 @@ export default {
     return {
       CateList: [],
       category: [],
-      parentListProp: {
-        value: 'cat_id',
-        label: 'cat_name',
-        children: 'children',
-        expandTrigger: 'hover'
-      }
+      parentListProp
     }
   },
   methods: {
@@ -50,8 +45,8 @@ export default {
       this.CateList = res.data
       console.log(this.CateList)
     },
-    handleChange () {
-      console.log(this.category)
+    handleChange (e) {
+      console.log(e)
     }
   },
   created () {
@@ -63,8 +58,5 @@ export default {
 <style lang='less' scope>
 .el-opt {
   margin-top: 30px;
-}
-.el-cascader {
-
 }
 </style>

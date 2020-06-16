@@ -16,9 +16,9 @@
       <el-col>
         <span>请选择商品分类：</span>
         <el-cascader
-          v-model="category"
+          v-model="value"
           :options="CateList"
-          :props="parentListProp"
+          :props="{ expandTrigger: 'hover' }"
           @change="handleChange">
         </el-cascader>
       </el-col>
@@ -31,14 +31,7 @@
 export default {
   data () {
     return {
-      CateList: [],
-      category: [],
-      parentListProp: {
-        value: 'cat_id',
-        label: 'cat_name',
-        children: 'children',
-        expandTrigger: 'hover'
-      }
+      CateList: []
     }
   },
   methods: {
@@ -49,9 +42,6 @@ export default {
       }
       this.CateList = res.data
       console.log(this.CateList)
-    },
-    handleChange () {
-      console.log(this.category)
     }
   },
   created () {
@@ -63,8 +53,5 @@ export default {
 <style lang='less' scope>
 .el-opt {
   margin-top: 30px;
-}
-.el-cascader {
-
 }
 </style>
